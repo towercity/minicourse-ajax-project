@@ -7,6 +7,10 @@ function loadData() {
     var $nytElem = $('#nytimes-articles');
     var $greeting = $('#greeting');
 
+    // clear out old data before new request
+    $wikiElem.text("");
+    $nytElem.text("");
+
     //take in user entered address
     var street = $('#street').val();
     var city = $('#city').val();
@@ -19,13 +23,7 @@ function loadData() {
     var streetviewURL = 'https://maps.googleapis.com/maps/api/streetview?size=600x400&location=' + address + ' ';
     $body.append('<img class="bgimg" src="' + streetviewURL + '">');
 
-    // clear out old data before new request
-    $wikiElem.text("");
-    $nytElem.text("");
-
-    // load streetview
-
-    // YOUR CODE GOES HERE!
+    //new york times AJAX request
 
     return false;
 };

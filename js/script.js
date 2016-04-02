@@ -40,6 +40,8 @@ function loadData() {
                 '<p>' + article.snippet + '</p>'
             );
         }
+    }).error(function() {
+        $nytHeaderElem.text("Could not find articles about " + city);
     });
 
     return false;

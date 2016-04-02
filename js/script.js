@@ -24,7 +24,9 @@ function loadData() {
     $body.append('<img class="bgimg" src="' + streetviewURL + '">');
 
     //new york times AJAX request
-    var nytURL = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + city + '&sort=newest&api-key=4134953ce7f541010d10595c16970556:12:74882553';
+    var nytURL = 'http://api.nytimes.com/svc/search/v2/articlesearch.json?q=' + city +
+        '&sort=newest&api-key=4134953ce7f541010d10595c16970556:12:74882553';
+
     $.getJSON(nytURL, function(data) {
         var articles = data.response.docs;
 
@@ -42,6 +44,25 @@ function loadData() {
         }
     }).error(function() {
         $nytHeaderElem.text("Could not find articles about " + city);
+    });
+
+    //wikipedia json-p request
+    var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + city +
+        '&format=json';
+
+    $.ajax({
+        url: wikiURL,
+        dataType: "jsonp",
+        success: function(data) {
+            var titles = data[1];
+            var links = data[3];
+
+            for (var i = 0; i < titles.length; i++) {
+                $wikiElem.append(
+                    '<li><a href="' + links[i] + '">' + titles[i] + '</a></li>'
+                );
+            }
+        }
     });
 
     return false;

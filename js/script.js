@@ -41,7 +41,7 @@ function loadData() {
                     article.headline.print_headline + '</a>' +
                 '<p>' + article.snippet + '</p>'
             );
-        }
+        };
     }).error(function() {
         $nytHeaderElem.text("Could not find articles about " + city);
     });
@@ -49,6 +49,10 @@ function loadData() {
     //wikipedia json-p request
     var wikiURL = 'https://en.wikipedia.org/w/api.php?action=opensearch&search=' + city +
         '&format=json';
+
+    var wikiRequestTimeout = setTimeout(function(){
+        $wikiElem.text('Failed to load Wikipedia resources');
+    }, 8000);
 
     $.ajax({
         url: wikiURL,
@@ -61,7 +65,9 @@ function loadData() {
                 $wikiElem.append(
                     '<li><a href="' + links[i] + '">' + titles[i] + '</a></li>'
                 );
-            }
+            };
+
+            clearTimeout(wikiRequestTimeout);
         }
     });
 

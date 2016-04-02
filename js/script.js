@@ -28,6 +28,8 @@ function loadData() {
     $.getJSON(nytURL, function(data) {
         var articles = data.response.docs;
 
+        $nytHeaderElem.text("News about " + city);
+
         for (var i = 0; i < articles.length; i++) {
             var article = articles[i];
 
